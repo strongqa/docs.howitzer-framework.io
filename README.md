@@ -1,3 +1,7 @@
+Getting Started
+===============
+
+
 <p align="center" style="overflow: hidden;">
   <a href="https://github.com/strongqa/howitzer">
     <img src="https://raw.githubusercontent.com/strongqa/howitzer/gh-pages/images/howitzer-logo.png" alt="Howitzer" />
@@ -10,8 +14,6 @@
 </p>
 
 
-Getting Started
-===============
 
 Available Drivers
 ------
