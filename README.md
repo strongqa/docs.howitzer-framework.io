@@ -33,7 +33,7 @@ The table below gives an important information on the driver settings in Howitze
 <thead>
   <tr>
     <th>Driver</th>
-    <th align="center">Category</th>
+    <th align="center">Kind</th>
     <th align="center">Setting name</th>
     <th align="center">Setting type</th>
     <th align="center">Description</th>
@@ -42,7 +42,7 @@ The table below gives an important information on the driver settings in Howitze
 <tbody>
   <tr>
     <td>
-      <a href="http://phantomjs.org/">phantomjs</a>(<strong>default</strong>)<br/><br/>
+      <a href="http://phantomjs.org/">phantomjs</a><br/><br/>
       <a href="https://github.com/teampoltergeist/poltergeist">poltergeist</a>
     </td>
     <td align="center">Headless</td>
