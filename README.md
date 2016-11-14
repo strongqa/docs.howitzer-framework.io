@@ -19,7 +19,7 @@ Available Drivers
 
 **Driver** is a universal interface for test runners against various web browsers. All driver implementations can be divided into 2 categories:
 
-* **Headless testing** – a browser emulation without a GUI (very useful on CI servers, e.g. Bamboo, TeamCity, Jenkins, CircleCI, Travis, etc.).
+* **Headless testing** – a browser emulation without a GUI (very useful on CI servers, e.g. Bamboo, TeamCity, Jenkins, CircleCI, Travis, etc.)
 * **Real browser testing** - an integration with real browsers through extensions, plugins, ActiveX, etc. (for local and cloud based testing, like SauceLabs, Testingbot, BrowserStack).
 
 Howitzer uses [Capybara](http://jnicklas.github.io/capybara/) for the driver management and configuration. All you need to do is to:
