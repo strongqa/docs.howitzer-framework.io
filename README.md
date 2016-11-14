@@ -29,7 +29,7 @@ Howitzer uses [Capybara](http://jnicklas.github.io/capybara/) for the driver man
 
 The table below gives an important information on the driver settings in Howitzer:
 
-<table style="font-size: 14px;">
+<table>
 <thead>
   <tr>
     <th>Driver</th>
