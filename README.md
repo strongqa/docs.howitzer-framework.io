@@ -9,7 +9,7 @@ Getting Started
 
   <p align="center"><b>Ruby-based framework for acceptance testing of web applications.</b></p>
 
-  <p align="center">The framework was built with modern patterns, techniques, and tools in automated testing in order to speed up tests development and simplify supporting.</p>
+  <p align="center">The framework was built with modern patterns, techniques and tools in automated testing in order to speed up tests development and simplify supporting.</p>
 </p>
 
 
@@ -25,9 +25,9 @@ Available Drivers
 Howitzer uses [Capybara](http://jnicklas.github.io/capybara/) for the driver management and configuration. All you need to do is to:
 
   - specify the **driver** settings in the _config/default.yml_
-  - Specify a few extra settings for the selected driver.
+  - specify a few extra settings for the selected driver.
 
-The table below gives an important information on the driver settings in Howitzer:
+The following table gives the important information about driver settings in Howitzer:
 
 <table style="font-size: 14px;">
 <thead>
@@ -72,14 +72,14 @@ The table below gives an important information on the driver settings in Howitze
     <td align="center">Real</td>
     <td align="center"><strong>selenium_browser</strong></td>
     <td align="center">String</td>
-    <td align="center">Indicate one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
+    <td align="center">Indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
   </tr>
   <tr>
       <td><a href="http://docs.seleniumhq.org/docs/07_selenium_grid.jsp">selenium_grid</a></td>
       <td align="center">Real</td>
       <td align="center"><strong>selenium_hub_url<br/>selenium_browser<br/><br/><br/></strong></td>
       <td align="center">String<br/>String<br/><br/><br/></td>
-      <td align="center">Hub url<br/>Indicate one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
+      <td align="center">Hub url<br/>indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
   </tr>
   <tr>
     <td><a href="https://saucelabs.com">sauce</a></td>
@@ -180,13 +180,12 @@ Introduction to the Page Object Model
 
 The Page Object Model is a test automation pattern that aims to create
 an abstraction of your site's user interface that can be used in tests.
-The most common way to do this is to model each page as a class, and
+The most common way to do this is to model each page as a class and
 to then use instances of those classes in your tests.
 
 If a class represents a page then each element of the page is
-represented by a method that, when called, returns a reference to that
-element that can then be acted upon (clicked, set text value), or
-queried (is it enabled? visible?).
+represented by a method. When being called the method returns a reference to the
+element and then it can be acted upon (clicked, set text value) or queried (is it enabled? visible?).
 
 Howitzer is based around this concept, but goes further as you'll see
 below by also allowing modelling of repeated sections that appear on
@@ -207,7 +206,7 @@ It means that each page is inherited from a parent class 'Howitzer::Web::Page' w
 ### Url specifying
 
 A page usually has a URL. If you want to be able to navigate to a page,
-you'll need to set at least its relative path. Here's how:
+you must set at least its relative path. Here's how:
 
 **Example1:**
 
@@ -296,7 +295,7 @@ Howitzer provides 3 different validation types:
   <tr>
     <td>:element_presence</td>
     <td>String/Symbol</td>
-    <td>find element by name on current page</td>
+    <td>finds element by name on current page</td>
   </tr>
 </tbody>
 </table>
@@ -342,7 +341,7 @@ Howitzer allows using all 3 validations at the same time, but only **1** is real
 
 ### Verifying that a particular page is displayed
 
-Howitzer automatically parses your page path template and verifies that whatever components your template specifies match the
+Howitzer automatically parses your page path template and verifies that all specified by your template components match the
 currently viewed page.
 
 Page validation is triggered in 2 cases **implicitly**:
@@ -368,7 +367,7 @@ Account.on { is_expected.to be_displayed }
 
 Capybara form dsl methods are not compatible with page object pattern and Howitzer gem.
 Instead of including Capybara::DSL module, we proxy most interesting Capybara methods and
-prevent using extra methods which can potentially broke main principles and framework concept
+prevent using extra methods which can potentially brake main principles and framework concept
 
 You can access all [Capybara::Session::SESSION_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) and [Capybara::Session::MODAL_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) methods via instance of any Howitzer page. In additional, `#driver` and  `#text` are available as well. Here are examples how to use:
 
@@ -385,7 +384,7 @@ Pages are made up of elements (text fields, buttons, combo boxes, etc), either i
 
 ### Element Specifying
 
-To interact with elements, they need to be defined as part of the relevant page. Howitzer introduces `.element` dsl method which receivers element name as first arguments. Other arguments are totaly the same as for `Capybara::Node::Finders#all` method. It allows you to define all required elements on page and do not repeat yourself.
+To interact with elements, they need to be defined as part of the relevant page. Howitzer introduces `.element` dsl method which receives element name as first argument. Other arguments are totaly the same as for `Capybara::Node::Finders#all` method. It allows you to define all required elements on page and do not repeat yourself.
 
 ```ruby
 class HomePage < Howitzer::Web::Page
@@ -398,7 +397,7 @@ class HomePage < Howitzer::Web::Page
 
   element :test_field1, :fillable_field, 'Foo'        #field locator by 'Foo' text
   element :test_field2, :fillable_field, 'bar'        #field locator by 'bar' id
-  element :test_field3, :fillable_field, 'bas'        #field locator by 'baz' name
+  element :test_field3, :fillable_field, 'baz'        #field locator by 'baz' name
 end
 ```
 
@@ -408,11 +407,11 @@ The `element` method will add a number of methods to instances of the particular
 #<element_name>_element - equals capybara #find(…) method
 #<element_name>_elements - equals capybara #all(…) method
 #<element_name>_elements.first - equals capybara #first(…) method
-#<has_element_name>_element? - equals capybara #has_selector(…) method
-#<has_no_element_name>_element? - equals capybara #has_no_selector(…) method
+#has_<element_name>_element? - equals capybara #has_selector(…) method
+#has_no_<element_name>_element? - equals capybara #has_no_selector(…) method
 ```
 
-__Note:__ It is forbiden to access to elements via specific page class directly. You must implement logical method within the page instead. Nevertheless, predicate methods are still available for elements. It is useful to compbine with [Rspec predicate matchers](https://github.com/rspec/rspec-expectations#predicate-matchers)
+__Note:__ It is forbidden to access to elements via specific page class directly. You must implement logical method within the page instead. Nevertheless, predicate methods are still available for elements. It is useful to combine with [Rspec predicate matchers](https://github.com/rspec/rspec-expectations#predicate-matchers)
 
 Here is a real example:
 
@@ -434,7 +433,7 @@ HomePage.on { is_expected.to have_no_new_button_element }
 
 ### Elements with dynamic content
 
-Sometimes it needs to have universal selectors, for instance for menu items. Another case, when it's unknown text in selector in advance. For such cases, Howitzer suggests to use _lambda_ selectors.
+Sometimes it is necessary to have universal selectors, e.g. for menu items. Another case is when element's text is unknown in advance. For such cases Howitzer suggests to use _lambda_ selectors.
 
 **Example:**
 
