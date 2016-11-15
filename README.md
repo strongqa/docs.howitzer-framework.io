@@ -20,7 +20,7 @@ Available Drivers
 **Driver** is a universal interface for test runners against various web browsers. All driver implementations can be divided into 2 categories:
 
 * **Headless testing** – a browser emulation without a GUI (very useful on CI servers, e.g. Bamboo, TeamCity, Jenkins, CircleCI, Travis, etc.)
-* **Real browser testing** - an integration with real browsers through extensions, plugins, ActiveX, etc. (for local and cloud based testing, like SauceLabs, Testingbot, BrowserStack).
+* **Real browser testing** - an integration with real browsers through extensions, plugins, ActiveX, etc. (for local and cloud-based testing, like SauceLabs, Testingbot, BrowserStack).
 
 Howitzer uses [Capybara](http://jnicklas.github.io/capybara/) for the driver management and configuration. All you need to do is to:
 
@@ -187,8 +187,8 @@ If a class represents a page then each element of the page is
 represented by a method. When being called the method returns a reference to the
 element and then it can be acted upon (clicked, set text value) or queried (is it enabled? visible?).
 
-Howitzer is based around this concept, but goes further as you'll see
-below by also allowing modelling of repeated sections that appear on
+Howitzer is based around this concept but goes further as you'll see
+below by also allowing modeling of repeated sections that appear on
 multiple pages, or many times on a page using the concept of sections.
 
 Pages
@@ -344,10 +344,11 @@ Howitzer allows using all 3 validations at the same time, but only **1** is real
 Howitzer automatically parses your page path template and verifies that all specified by your template components match the
 currently viewed page.
 
-Page validations are triggered in 2 cases **implicitly**:
+Page validations are triggered in 3 cases **implicitly**:
 
 1. < Web Page Class >.open
 2. < Web Page Class >.given
+3. < Web Page Class>.on { any_page_method }
 
 Calling `.displayed?` will trigger validations **explicitly**. It returns true if all page validations are passed and false if at least one of defined validations is failed.
 
@@ -362,11 +363,107 @@ AccountPage.open(id: 22)
 expect(AccountPage).to be_displayed
 ```
 
+### Access to page objects
+
+All pages in Howitzer are singleton objects. It means we can not instantiate more than 1 object in memory for particular page glass. The main motivation to do like that is performance. Anyway each time we need to ask fresh data from real web page because it could be changed since last time.
+
+Howitzer provides several ways to access to a page object.
+
+1. FooPage.instance - returns FooPage instance without validations triggering
+2. FooPage.given - returns FooPage instance with all the page validations triggering
+3. FooPage.open - navigates to the page and executes #given method
+4. FooPage.on {} - executes methods in FooPage instance context.
+
+FooPage.on is the most interesting method. Let's consider a following example:
+
+```ruby
+class HomePage < Howitzer::Web::Page
+  path '/'
+  validate :url, /\A(?:.*?:\/\/)?[^\/]*\/?\z/
+
+  def method1
+    #some logic here
+    self
+  end
+
+  def method2
+    #some logic here
+    self
+  end    
+end
+```
+
+And now how we could use it:
+
+```ruby
+HomePage.open.method1.method2
+# or
+HomePage.given.method1.method2
+```
+
+What current problem here? Potentially there is risk method1 will navigate us to another page. We will not know about it and method2 execution will fail. It is really annoying to debug such cases. What alternative then? We need something like that:
+
+```ruby
+HomePage.open
+HomePage.given.method1
+HomePage.given.method2
+```
+
+We see a code duplication `HomePage.given` here. Fortunately, we have another method #on which allows us to get rid of the code duplication and have a more elegant code.
+
+```ruby
+HomePage.open
+HomePage.on do
+  method1
+  method2
+end
+```
+
+It is fully identical with previous functionality. On each method execution, we apply it to HomePage.given context implicitly.
+
+Although it should be noted, such technical approach has own technical limitation. We unbind context. As result, we loose access to outer instance variables and methods and do not have ability to use it within #on block. This is a price for elegance. Howitzer provides a solution for this case - #out method. Let's take a look at a following example:
+
+```ruby
+# Some cucumber step definitions
+
+Given /^there is article$/ do
+  @article = create(:article)
+end
+```
+And then we want to use shared data between steps
+
+```ruby
+When /^I navigate to article on article list page$/ do
+  ArticleListPage.open
+  ArticleListPage.on { open_article(@article.title) }
+end
+```
+
+As we discussed, it will not work. Correct solution is:
+
+```ruby
+When /^I navigate to article on article list page$/ do
+  ArticleListPage.open
+  ArticleListPage.on { open_article(out(:@article).title) }
+end
+```
+
+or
+
+```ruby
+When /^I navigate to article on article list page$/ do
+  ArticleListPage.open
+  ArticleListPage.given.open_article(@article.title)
+end
+```
+
+Same way we could use original method execution in #on block, like out(:method_name)
+
 ### Proxied Capybara Methods
 
 Capybara form dsl methods are not compatible with page object pattern and Howitzer gem.
 Instead of including Capybara::DSL module, we proxy most interesting Capybara methods and
-prevent using extra methods which can potentially brake main principles and framework concept
+prevent using extra methods which can potentially break main principles and framework concept
 
 You can access all [Capybara::Session::SESSION_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) and [Capybara::Session::MODAL_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) methods via instance of any Howitzer page. In additional, `#driver` and  `#text` are available as well. Here are examples how to use:
 
@@ -383,7 +480,7 @@ Pages are made up of elements (text fields, buttons, combo boxes, etc), either i
 
 ### Element Specifying
 
-To interact with elements, they need to be defined as part of the relevant page. Howitzer introduces `.element` dsl method which receives element name as first argument. Other arguments are totaly the same as for `Capybara::Node::Finders#all` method. It allows you to define all required elements on page and do not repeat yourself.
+To interact with elements, they need to be defined as part of the relevant page. Howitzer introduces `.element` dsl method which receives element name as a first argument. Other arguments are totally the same as for `Capybara::Node::Finders#all` method. It allows you to define all required elements on a page and do not repeat yourself.
 
 ```ruby
 class HomePage < Howitzer::Web::Page
@@ -406,6 +503,8 @@ The `element` method will add a number of methods to instances of the particular
 #<element_name>_element - equals capybara #find(…) method
 #<element_name>_elements - equals capybara #all(…) method
 #<element_name>_elements.first - equals capybara #first(…) method
+#wait_for_<element_name>_element - equals capybara #find(…) method but returns nil or raises exception
+#within_<element_name>_element - equals capybara #within(…) method
 #has_<element_name>_element? - equals capybara #has_selector(…) method
 #has_no_<element_name>_element? - equals capybara #has_no_selector(…) method
 ```
@@ -432,12 +531,12 @@ HomePage.on { is_expected.to have_no_new_button_element }
 
 ### Elements with dynamic content
 
-Sometimes it is necessary to have universal selectors, e.g. for menu items. Another case is when element's text is unknown in advance. For such cases Howitzer suggests to use _lambda_ selectors.
+Sometimes it is necessary to have universal selectors, e.g. for menu items. Another case is when element's text is unknown in advance. For such cases, Howitzer suggests using _lambda_ selectors.
 
 **Example:**
 
 ```ruby
- element  :menu_item, :xpath, ->(name) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
+ element :menu_item, :xpath, ->(name) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
 
  #and then usage
  def choose_menu(text)
@@ -455,7 +554,7 @@ Howitzer provides the `Howitzer::Web::Section` class for this task.
 ### Named Sections
 
 Howitzer provides `section` dsl method. It generates `<section_name>_section`
-method witch returns an instance of a page section, found by the supplied css
+method which returns an instance of a page section, found by the supplied css
 selector with using special `me` dsl method. This root node becomes the 'scope'
 of the section. What follows is an explanation of `section`.
 
@@ -474,7 +573,7 @@ At the moment, this section does nothing.
 
 #### Adding a section to a page
 
-Pages include sections that's how Howitzer works. Here's a page that
+Pages include sections that are how Howitzer works. Here's a page that
 includes the above `MenuSection` section:
 
 ```ruby
@@ -509,7 +608,7 @@ HomePage.on { menu_section }
 ```
 
 When the `menu_section` method is called against `HomePage`, an instance of
-`MenuSection` is returned. The small magic happens there. First argument of
+`MenuSection` is returned. The small magic happens there. A first argument of
 `section` method is converted to a section class (:menu -> MenuSection).
 
 The second argument is optional. If it is omitted, then default selector will be
@@ -706,7 +805,7 @@ each listing contains a title, a url and a description of the content.
 It makes sense to model this only once and then to be able to access
 each instance of a search result on a page as an array of Howitzer
 sections. To achieve this, Howitzer generates the `<section_name>_sections`
-method that can be called in a page or a section.
+method that can be called within a page or a section.
 
 The only difference between `<section_name>_section` and `<section_name>_sections`
 is that whereas the first returns an instance of the supplied section class,
@@ -815,7 +914,7 @@ end
 
 **Rule Two:** Coding of checks in the class pages methods are __prohibited.__
 
-Here is how implement it correctly:
+Here is how to implement it correctly:
 
 **Example:**
 
@@ -869,14 +968,14 @@ Howitzer allows you to define individual emails like web pages.  is used for thi
 ### Individual Emails
 
 To interact with individual emails, they need to be defined as separate classes with Email sufix inherited from `Howitzer::Email` class.
-In additinal, each class must contain special subject pattern which uses to identify the email correctly. Howitzer makes this easy:
+In additional, each class must contain a special subject pattern which uses to identify the email correctly. Howitzer makes this easy:
 
 ```ruby
 # put it to ./emails/welcome_email.rb
 class WelcomeEmail < Howitzer::Email
   subject 'Welcome on board :name' # :name is placeholder here
 
-  def addressed_to?(new_user) # check that the letter were sent to proper recipient
+  def addressed_to?(new_user) # check that the letter was sent to proper recipient
      / Hi # { new_user } / === plain_text_body # see info about available methods bellow
   end
 end
@@ -885,6 +984,15 @@ email = WelcomeEmail.find_by_recipient('john.smith@example.com', name: 'John')
 expect(email).to be_addressed_to('John')
 
 ```
+
+By default, Howitzer waits for an email in an email box for `Howitzer.mail_wait_time` seconds. But it is possible to override wait time for an individual email with `wait_time` dsl method. Here is how:
+
+```ruby
+class WelcomeEmail < Howitzer::Email
+  subject 'Welcome on board'
+  wait_time 10.minutes
+end
+```  
 
 ### Adapters
 
@@ -903,7 +1011,7 @@ Howitzer provides `Howitzer::MailAdapters::Abstract` universal interface for dif
 
 #### Mailgun
 
-By default Howitzer uses an outstanding service called [Mailgun](http://www.mailgun.com) that allows to catch all emails of a sandbox domain and store them in its own data storage within 3 days. It is extremely useful during web application testing when a new user with email confirmation is created.
+By default, Howitzer uses an outstanding service called [Mailgun](http://www.mailgun.com) that allows catching all emails of a sandbox domain and store them in its own data storage within 3 days. It is extremely useful during web application testing when a new user with email confirmation is created.
 
 You can use a **free** account. Follow the below steps to create an account:
 
@@ -941,7 +1049,7 @@ Logging
 
 ### BUILT-IN logging
 
-*Howitzer* uses the resources of Cucumber and RSpec to generate HTML and JUnit logging. HTML provides the possibility to view the log in HTML while JUnit uses the logs in CI, correspondingly.
+*Howitzer* uses the resources of Cucumber and RSpec to generate HTML and JUnit logging. HTML provides the possibility to view the log as HTML while JUnit uses the logs in CI, correspondingly.
 
 Running of built-in HTML generators for RSpec, Turnip and Cucumber logging is available if you run the tests using the `rake` tasks.
 
@@ -1009,7 +1117,7 @@ class TestEmail < Howitzer::Email
     if /Hi #{ new_user }/ === plain_text_body
       Howitzer::Log.info "some message"
     else
-      Howitzer::Log.warn "some mesage"
+      Howitzer::Log.warn "some message"
     end
   end
 end
@@ -1025,7 +1133,7 @@ It will log BOTH stdout and stderr from ls to file.txt.
 Data Storage
 -------------
 
-The Data Storage is a simple key value storage that uses namespaces (e.g. :user, :cloud, etc.).
+The Data Storage is a simple key-value storage that uses namespaces (e.g. :user, :cloud, etc.).
 
 This module has next methods:
 The module supports the following methods:
@@ -1082,30 +1190,30 @@ In memory it looks like:
 Test Pre-Requisites
 ---------------
 
-Typically any scenario consists from 3 parts: pre-requisites, actions,
+Typically any scenario consists of 3 parts: pre-requisites, actions,
 verifications. First of all, it means, you have to prepare somehow your
-application under test (AUT) to testable state for particular scenario.
-Remember, Howitzer considers the AUT as black box, so no way there to do
+application under test (AUT) to a testable state for a particular scenario.
+Remember, Howitzer considers the AUT as a black box, so no way there to do
 it with the application code. How could we prepare test pre-requisites
 then? Here are possible options:
 1) direct manipulation with a database
 2) via GUI
 3) via REST API
-  In first case we could really to connect to a database and create required
-data. But wait, what about case when table is renamed or restructured by
-developers? It is really difficult to keep the such data generators in
-actual state.
-  In second case we would emulate a user iteration with the system.
-The main disadvantage is speed of scenario execution, it will grow
-dramatically. From other side, we rely on functionality which is out of
-testing goal. Assume, we have to create user. Bug on signup form will fail
-all scenarios where new user creation is required. Obviously we would like
+  In first case, we could really to connect to a database and create required
+data. But wait, what about a case when a table is renamed or restructured by
+developers? It is really difficult to keep such data generators in
+an actual state.
+  In second case, we would emulate a user iteration with the system.
+The main disadvantage is a speed of scenario execution, it will grow
+dramatically. From another side, we rely on functionality which is out of a
+testing goal. Assume, we have to create a user. Bug on signup form will fail
+all scenarios where new user creation is required. Obviously, we would like
 to have only 1 scenario in that case.
-  In third case we rely on REST API. If your AUT has already contained
+  In third case, we rely on REST API. If your AUT has already contained
 the REST API (for frontend, mobile, etc.), then it is reasonable to use it
 for your tests as well. Typically API is covered with unit and integration
-tests, and is not changed so often, like database structure. So, there is
-less risk than in previous case to have flood of failed tests.
+tests and is not changed so often, like database structure. So, there is
+less risk than in the previous case to have a flood of failed tests.
 
 ### REST API
 
@@ -1117,8 +1225,8 @@ by yourself depends on conventions and rules which are used for AUT.
 
 ### Models
 
-Model is special class which allows to communicate with single REST api
-endpoint. It wraps low level http connection, request building and response
+Model is a special class which allows communication with single REST api
+endpoint. It wraps low-level http connection, building request and response
 parsing. To implement a custom model, override the following methods:
 - `Base.find`
 - `Base.where`
@@ -1126,7 +1234,7 @@ parsing. To implement a custom model, override the following methods:
 
 ### Factories
 
-A fabric generates particular test data objects in schematic way. Howitzer
+A fabric generates particular test data objects in a schematic way. Howitzer
 uses [FactoryGirl](https://github.com/thoughtbot/factory_girl) ruby library
 to define factories.
 
@@ -1162,11 +1270,9 @@ The last line will automatically replace `FACTORY_USER[:username]` with factory 
 
 ### Tagging ###
 
-BDD tools allow to filter a subset of scenarios by tags. For this purpose you have to mark a scenario with one or
-more tags. If feature is marked with a tag then all scenarios of feature inherit the one.
+BDD tools allow filtering a subset of scenarios by tags. For this purpose, you have to mark a scenario with one or more tags. If a feature is marked with a tag then all scenarios of feature inherit the one.
 
-It is good idea to mark all scenarios with priority tags. Critical scenarios execution with high priority helps you
-to discover critical bugs as soon as possible and do not spend time for minor scenarios execution in this case.
+It is a good idea to mark all scenarios with priority tags. Critical scenarios execution with high priority helps you to discover critical bugs as soon as possible and do not spend time for minor scenarios execution in this case.
 
 You can find most used priority tags bellow:
 * **@smoke** - smoke test (critical functionality)
@@ -1174,7 +1280,7 @@ You can find most used priority tags bellow:
 * **@p1** - priority 1 (normal functionality)
 * **@p2** - priority 2 (minor functionality)
 
-In additional you have ability to exclude some scenarios with following tags:
+In additional you have an ability to exclude some scenarios with following tags:
 * **@wip** - work in progress (started implementation but has not been finished yet)
 * **@bug** - known bug (a bug is posted to bug tracker but has not been fixed yet)
 
@@ -1183,7 +1289,7 @@ In additional you have ability to exclude some scenarios with following tags:
 Howitzer provides unified rake tasks for each BDD tool to execute scenario subsets based on tagging concept described
 above.
 
-You can find full list of rake tasks with description with following command:
+You can find full list of rake tasks with description with a following command:
 
 ```bash
    rake -T
