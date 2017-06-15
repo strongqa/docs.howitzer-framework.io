@@ -52,7 +52,7 @@ The following table gives the important information about driver settings in How
       String
     </td>
     <td align="center">
-      represents startup arguments, full list <a href="http://peter.sh/experiments/chromium-command-line-switches/">here</a>
+      represents startup arguments, full list <a href="http://peter.sh/experiments/chromium-command-line-switches/">here.</a>
     </td>
   </tr>
   <tr>
