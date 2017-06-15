@@ -42,6 +42,21 @@ The following table gives the important information about driver settings in How
 <tbody>
   <tr>
     <td>
+      <a href="https://www.google.com/chrome/">headless_chrome</a>
+    </td>
+    <td align="center">Headless</td>
+    <td align="center">
+      <strong>headless_chrome_flags</strong>
+    </td>
+    <td align="center">
+      String
+    </td>
+    <td align="center">
+      represents startup arguments, full list <a href="http://peter.sh/experiments/chromium-command-line-switches/">here</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <a href="http://phantomjs.org/">phantomjs</a><br/><br/>
       <a href="https://github.com/teampoltergeist/poltergeist">poltergeist</a>
     </td>
