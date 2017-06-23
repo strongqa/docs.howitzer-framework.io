@@ -187,6 +187,37 @@ The following table gives the important information about driver settings in How
     </td>
     <td align="center">See details <a href="https://www.browserstack.com/automate/capabilities">here</a></td>
   </tr>
+  <tr>
+    <td><a href="https://crossbrowsertesting.com/">crossbrowsertesting</a></td>
+    <td align="center">Real</td>
+    <td align="center">
+    <strong>cloud_auth_login<strong><br/>
+    <strong>cloud_auth_pass</strong><br/>
+    <strong>cloud_browser_name</strong><br/>
+    <strong>cloud_browser_version</strong><br/>
+    <strong>cloud_max_duration</strong><br/>
+    <strong>cloud_cbt_name</strong><br/>
+    <strong>cloud_cbt_build</strong><br/>
+    <strong>cloud_cbt_os_api_name</strong><br/>
+    <strong>cloud_cbt_screen_resolution</strong><br/>
+    <strong>cloud_cbt_record_video</strong><br/>
+    <strong>cloud_cbt_record_network</strong>
+    </td>
+    <td align="center">
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String
+    </td>
+    <td align="center">See details <a href="https://help.crossbrowsertesting.com/selenium-testing/tutorials/crossbrowsertesting-automation-capabilities/">here</a></td>
+  </tr>
 </tbody>
 </table>
 
