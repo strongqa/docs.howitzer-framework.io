@@ -1030,9 +1030,9 @@ You can use a **free** account. Follow the below steps to create an account:
 
 1.	Sign up [here](https://mailgun.com/signup).
 2.	Login and copy your Private API Key.
-3.	Open the `config/custom.yml` file of your project, find the **mailgun_key** setting and paste the API key there.
+3.	Open the `config/default.yml` file of your project, find the **mailgun_key** setting and paste the Private API Key there. Move the **mailgun_key** setting to `config/custom.yml`.
 4.	Browse to the MailGun web page again and copy the mailgun domain, i.e. 'sandboxbaf443d4c81b43d0b64a413805dc6f68.mailgun.org'
-5.	Open the `config/custom.yml` file of your project again, find the **mailgun_domain** setting and paste the mailgun domain there.
+5.	Open the `config/default.yml` file of your project again, find the **mailgun_domain** setting and paste the mailgun domain there. Move the **mailgun_domain** setting to `config/custom.yml`.
 6.	Open the MailGun web page again and navigate to the **Routes** menu.
 7.	Create a new route with the following parameters:
 
@@ -1256,8 +1256,9 @@ You can define a schematic for generating objects by defining a factory as
 
 ### Cucumber Transformers
 
-In /features/support/tranformers.rb file are described Cucumber transformers (to see more info visit this one: You will find the description of the Cucumber transformers in the /features/support/tranformers.rb file. To get more information, refer to this site: https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms). We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a sign_up.feature:
-
+In **/features/support/tranformers.rb** file are described Cucumber transformers (to see more info visit this one: You will find the description of the Cucumber transformers in the **/features/support/tranformers.rb** file. To get more information, refer to this site:
+[https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms](https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms). We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a _sign_up.feature:_
+```ruby
 Feature: Sign Up
 
 In order to use all functionality of the system
