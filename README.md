@@ -266,7 +266,7 @@ SearchPage.open(query: {text: :foo}) #=> visits /search?text=foo
 
 For more information about path patterns please refers to https://github.com/sporkmonger/addressable
 
-__Note:__ By default, all pages have an application host specified in Howitzer::Web::page class as Howitzer.app_host.site
+__Note:__ By default, all pages have an application host specified in Howitzer::Web::Page class as Howitzer.app_host.site
 If your web application under test consists of different application hosts, then you can specify custom application host for specific page classes. Here's how:
 
 ```ruby
@@ -909,8 +909,6 @@ end
 
 ### Good Practices Rules ###
 
-Good Practice Rules
-
 **Rule One:** Do not get tied to the interface. This means that you should use common phrases in the name and description of the methods.
 
 **Example:**
@@ -934,7 +932,7 @@ Here is how to implement it correctly:
 **Example:**
 
 ```ruby
-class MyPage < WebPage
+class MyPage < Howitzer::Web::Page
   def submit_form
     # ...
   end
@@ -962,7 +960,7 @@ end
 **Example:**
 
 ```ruby
-class MyPage < WebPage
+class MyPage < Howitzer::Web::Page
   def submit_form
     Howitzer::Log.info "[ACTION] Submit form"
     # ...
@@ -1031,27 +1029,27 @@ By default, Howitzer uses an outstanding service called [Mailgun](http://www.mai
 You can use a **free** account. Follow the below steps to create an account:
 
 1.	Sign up [here](https://mailgun.com/signup).
-2.	Login and copy your API Key.
-3.	Open the `config/default.yml` file of your project, find the **mailgun_key** setting and paste the API key there.
+2.	Login and copy your Private API Key.
+3.	Open the `config/custom.yml` file of your project, find the **mailgun_key** setting and paste the API key there.
 4.	Browse to the MailGun web page again and copy the mailgun domain, i.e. 'sandboxbaf443d4c81b43d0b64a413805dc6f68.mailgun.org'
-5.	Open the `config/default.yml` file of your project again, find the **mailgun_domain** setting and paste the mailgun domain there.
+5.	Open the `config/custom.yml` file of your project again, find the **mailgun_domain** setting and paste the mailgun domain there.
 6.	Open the MailGun web page again and navigate to the **Routes** menu.
 7.	Create a new route with the following parameters:
 
 <table>
 <thead>
   <tr>
-    <th align="center">Priority</th>
-    <th align="center">Filter Expression</th>
+    <th align="center">Expression Type</th>
     <th align="center">Action</th>
+    <th align="center">Priority</th>
     <th align="center">Description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>0</td>
     <td>match_recipient(".*")</td>
     <td>store()</td>
+    <td>0</td>
     <td>Store all messages</td>
   </tr>
 </tbody>
@@ -1258,12 +1256,8 @@ You can define a schematic for generating objects by defining a factory as
 
 ### Cucumber Transformers
 
-In **/features/support/tranformers.rb** file are described Cucumber transformers (to see more info visit this one:
-You will find the description of the Cucumber transformers in the **/features/support/tranformers.rb** file. To get more information, refer to this site:
-[https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms](https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms)).
-We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a _sign_up.feature:_
+In /features/support/tranformers.rb file are described Cucumber transformers (to see more info visit this one: You will find the description of the Cucumber transformers in the /features/support/tranformers.rb file. To get more information, refer to this site: https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms). We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a sign_up.feature:
 
-```ruby
 Feature: Sign Up
 
 In order to use all functionality of the system
@@ -1273,13 +1267,7 @@ I want to register to the system
 Scenario: correct credentials
 Given there is FACTORY_USER entity # it builds :user factory in _transformers.rb_ file.
 And I am on Register page
-When I put next register data and apply it
-
-|username               |email                 |password               |
-|FACTORY_USER[:username]|FACTORY_USER[:email]  |FACTORY_USER[:password]|
-```
-
-The last line will automatically replace `FACTORY_USER[:username]` with factory data which you can use.
+When I put next register data: name - FACTORY_USER[:username],email - FACTORY_USER[:email], password - FACTORY_USER[:password]
 
 ## Running a subset of scenarios
 
