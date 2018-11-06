@@ -1257,7 +1257,7 @@ You can define a schematic for generating objects by defining a factory as
 ### Cucumber Transformers
 
 In **/features/support/tranformers.rb** file are described Cucumber transformers (to see more info visit this one: You will find the description of the Cucumber transformers in the **/features/support/tranformers.rb** file. To get more information, refer to this site:
-[https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms](https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms). We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a _sign_up.feature:_
+[https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms](https://github.com/cucumber/cucumber/wiki/Step-Argument-Transforms)). We use transformers for generating data objects in tests. Let’s imagine, for example, that you need to write a _sign_up.feature:_
 ```ruby
 Feature: Sign Up
 
