@@ -29,7 +29,7 @@ Howitzer uses [Capybara](https://teamcapybara.github.io/capybara/) for the drive
 
 The following table gives the important information about driver settings in Howitzer:
 
-<table>
+<table id="driver_list">
 <thead>
   <tr>
     <th>Driver</th>
@@ -378,24 +378,23 @@ Howitzer allows using all 3 validations at the same time, but only **1** is real
 Howitzer automatically parses your page path template and verifies that all specified by your template components match the
 currently viewed page.
 
-Page validation is triggered in 3 cases **implicitly**:
+Page validations are triggered in 3 cases **implicitly**:
 
 1. < Web Page Class >.open
 2. < Web Page Class >.given
 3. < Web Page Class>.on { any_page_method }
 
-Calling `#displayed?` will trigger validations **explicitly**. It returns true if the browser's current URL
-matches the page's template and false if it doesn't.
+Calling `.displayed?` will trigger validations **explicitly**. It returns true if all page validations are passed and false if at least one of defined validations is failed.
 
 For example, with the following path template:
 
 ```ruby
-class Account < Howitzer::Web::Page
+class AccountPage < Howitzer::Web::Page
   path '/accounts/{id}'
 end
 
-Account.open(id: 22)
-Account.on { is_expected.to be_displayed }
+AccountPage.open(id: 22)
+expect(AccountPage).to be_displayed
 ```
 
 ### Access to page objects
