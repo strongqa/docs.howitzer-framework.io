@@ -2,7 +2,7 @@ Getting Started
 ===============
 
 <p align="center" style="overflow: hidden;">
-  <a href="http://howitzer-framework.io">
+  <a href="https://howitzer-framework.io">
     <img src="https://raw.githubusercontent.com/strongqa/howitzer/gh-pages/images/howitzer-logo.png" alt="Howitzer" />
   </a>
   <br/>
@@ -20,9 +20,9 @@ Available Drivers
 **Driver** is a universal interface for test runners against various web browsers. All driver implementations can be divided into 2 categories:
 
 * **Headless testing** – a browser emulation without a GUI (very useful on CI servers, e.g. Bamboo, TeamCity, Jenkins, CircleCI, Travis, etc.)
-* **Real browser testing** - an integration with real browsers through extensions, plugins, ActiveX, etc. (for local and cloud based testing, like SauceLabs, Testingbot, BrowserStack).
+* **Real browser testing** - an integration with real browsers through extensions, plugins, ActiveX, etc. (for local and cloud based testing, like SauceLabs, Testingbot, BrowserStack, CrossBrowserTesting).
 
-Howitzer uses [Capybara](http://jnicklas.github.io/capybara/) for the driver management and configuration. All you need to do is to:
+Howitzer uses [Capybara](https://teamcapybara.github.io/capybara/) for the driver management and configuration. All you need to do is to:
 
   - specify the **driver** settings in the _config/default.yml_
   - specify a few extra settings for the selected driver.
@@ -52,45 +52,33 @@ The following table gives the important information about driver settings in How
       String
     </td>
     <td align="center">
-      represents startup arguments, full list <a href="http://peter.sh/experiments/chromium-command-line-switches/">here</a>
+      represents startup arguments, full list <a href="https://peter.sh/experiments/chromium-command-line-switches/">here</a>
     </td>
   </tr>
-  <tr>
+    <tr>
     <td>
-      <a href="http://phantomjs.org/">phantomjs</a><br/><br/>
-      <a href="https://github.com/teampoltergeist/poltergeist">poltergeist</a>
+      <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox">headless_firefox</a>
     </td>
     <td align="center">Headless</td>
     <td align="center">
-      <strong>phantom_ignore_js_errors</strong><br/><br/>
-      <strong>phantom_ignore_ssl_errors</strong>
+      <strong> headless_firefox_flags</strong>
     </td>
     <td align="center">
-      Boolean <br/><br/>
-      Boolean
+      String
     </td>
     <td align="center">
-      if false, then raises exception on js error in app<br/>
-      if false, then ignores ssl warnings<br/>
+      represents startup arguments, full list <a href="http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options.html">here</a>
     </td>
   </tr>
-
   <tr>
-    <td><a href="https://github.com/thoughtbot/capybara-webkit">webkit</a></td>
-    <td align="center">Headless</td>
-    <td align="center">-</td>
-    <td align="center">-</td>
-    <td align="center">Uncomment `gem 'capybara-webkit'` in Gemfile</td>
-  </tr>
-  <tr>
-    <td><a href="https://code.google.com/p/selenium/wiki/RubyBindings">selenium</a></td>
+    <td><a href="https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings">selenium</a></td>
     <td align="center">Real</td>
     <td align="center"><strong>selenium_browser</strong></td>
     <td align="center">String</td>
     <td align="center">Indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
   </tr>
   <tr>
-      <td><a href="http://docs.seleniumhq.org/docs/07_selenium_grid.jsp">selenium_grid</a></td>
+      <td><a href="https://www.selenium.dev/documentation/grid/">selenium_grid</a></td>
       <td align="center">Real</td>
       <td align="center"><strong>selenium_hub_url<br/>selenium_browser<br/><br/><br/></strong></td>
       <td align="center">String<br/>String<br/><br/><br/></td>
@@ -124,7 +112,7 @@ The following table gives the important information about driver settings in How
     String<br/>
     Boolean
     </td>
-    <td align="center">See details <a href="https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options">here</a></td>
+    <td align="center">See details <a href="https://docs.saucelabs.com/dev/test-configuration-options/">here</a></td>
   </tr>
   <tr>
     <td><a href="http://testingbot.com">testingbot</a></td>
@@ -186,6 +174,37 @@ The following table gives the important information about driver settings in How
     String
     </td>
     <td align="center">See details <a href="https://www.browserstack.com/automate/capabilities">here</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://crossbrowsertesting.com/">crossbrowsertesting</a></td>
+    <td align="center">Real</td>
+    <td align="center">
+    <strong>cloud_auth_login<strong><br/>
+    <strong>cloud_auth_pass</strong><br/>
+    <strong>cloud_browser_name</strong><br/>
+    <strong>cloud_browser_version</strong><br/>
+    <strong>cloud_max_duration</strong><br/>
+    <strong>cloud_cbt_name</strong><br/>
+    <strong>cloud_cbt_build</strong><br/>
+    <strong>cloud_cbt_os_api_name</strong><br/>
+    <strong>cloud_cbt_screen_resolution</strong><br/>
+    <strong>cloud_cbt_record_video</strong><br/>
+    <strong>cloud_cbt_record_network</strong>
+    </td>
+    <td align="center">
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String<br/>
+    String
+    </td>
+    <td align="center">See details <a href="https://support.smartbear.com/crossbrowsertesting/docs/automated-testing/automation-capabilities.html">here</a></td>
   </tr>
 </tbody>
 </table>
@@ -453,11 +472,11 @@ Sometimes it is necessary to have universal selectors, e.g. for menu items. Anot
 **Example:**
 
 ```ruby
- element  :menu_item, :xpath, ->(name) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
+ element  :menu_item, :xpath, ->(name:) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
 
  #and then usage
  def choose_menu(text)
-   menu_item_element(text).click
+   menu_item_element(lambda_args(name: text), wailt: 3).click
  end
 ```
 
@@ -566,10 +585,10 @@ This works just the same as adding elements to a page:
 class MenuSection < Howitzer::Web::Section
   me '#gbx3'
 
-  element :menu_item, :xpath, ->(text){ ".//li[text()='#{text}']" }
+  element :menu_item, :xpath, ->(text:){ ".//li[text()='#{text}']" }
 
   def logout
-    menu_item_element('Logout').click
+    menu_item_element(lambda_args(text: 'Logout'), wait: 3).click
   end  
 end
 ```
@@ -921,7 +940,7 @@ Howitzer provides `Howitzer::MailAdapters::Abstract` universal interface for dif
 
 By default Howitzer uses an outstanding service called [Mailgun](http://www.mailgun.com) that allows to catch all emails of a sandbox domain and store them in its own data storage within 3 days. It is extremely useful during web application testing when a new user with email confirmation is created.
 
-You can use a **free** account. Follow the below steps to create an account:
+You could use a **free** account in past, but now it is required paid account to configure routes. Follow the below steps to create an account:
 
 1.	Sign up [here](https://mailgun.com/signup).
 2.	Login and copy your API Key.
@@ -949,6 +968,32 @@ You can use a **free** account. Follow the below steps to create an account:
   </tr>
 </tbody>
 </table>
+
+#### Gmail
+
+Google mail service (<a href="https://gmail.com">Gmail</a>) allows to make several addresses out of one. Technically you can signup with some test account and generate any amount of addresses by adding `.` or `+<uniq text>`. Read more about it <a href="https://www.nytimes.com/2018/08/23/technology/personaltech/periods-in-gmail-addresses.html">here</a>.
+
+If the testable web application supports such kind of addresses, then this adapter is a good free candidate to use. 
+
+Just specify following howitzer configuration file:
+
+```
+mail_adapter: gmail
+gmail_login: <test email>
+gmail_password: <test password>
+```
+
+#### Mailtrap
+
+Read more about it <a href="https://mailtrap.io/">here</a>.
+
+Just specify following howitzer configuration file:
+
+```
+mail_adapter: mailtrap
+mailtrap_api_token: <private_api_key>
+mailtrap_inbox_id: <inbox_id>
+```
 
 Logging
 -------
@@ -1143,7 +1188,7 @@ parsing. To implement a custom model, override the following methods:
 ### Factories
 
 A fabric generates particular test data objects in schematic way. Howitzer
-uses [FactoryGirl](https://github.com/thoughtbot/factory_girl) ruby library
+uses [FactoryBot](https://github.com/thoughtbot/factory_bot) ruby library
 to define factories.
 
 You can define a schematic for generating objects by defining a factory as
