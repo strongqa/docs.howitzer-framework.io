@@ -1,5 +1,5 @@
-Getting Started
-===============
+<h1>Getting Started</h1>
+<!-- =============== -->
 
 <p align="center" style="overflow: hidden;">
   <a href="https://howitzer-framework.io">
@@ -30,183 +30,181 @@ Howitzer uses [Capybara](https://teamcapybara.github.io/capybara/) for the drive
 The following table gives the important information about driver settings in Howitzer:
 
 <table id="driver_list">
-<thead>
-  <tr>
-    <th>Driver</th>
-    <th align="center">Kind</th>
-    <th align="center">Setting name</th>
-    <th align="center">Setting type</th>
-    <th align="center">Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>
-      <a href="https://www.google.com/chrome/">headless_chrome</a>
-    </td>
-    <td align="center">Headless</td>
-    <td align="center">
-      <strong>headless_chrome_flags</strong>
-    </td>
-    <td align="center">
-      String
-    </td>
-    <td align="center">
-      represents startup arguments, full list <a href="https://peter.sh/experiments/chromium-command-line-switches/">here.</a>
-    </td>
-  </tr>
+  <thead>
     <tr>
-    <td>
-      <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox">headless_firefox</a>
-    </td>
-    <td align="center">Headless</td>
-    <td align="center">
-      <strong> headless_firefox_flags</strong>
-    </td>
-    <td align="center">
-      String
-    </td>
-    <td align="center">
-      represents startup arguments, full list <a href="http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options.html">here.</a>
-    </td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings">selenium</a></td>
-    <td align="center">Real</td>
-    <td align="center"><strong>selenium_browser</strong></td>
-    <td align="center">String</td>
-    <td align="center">Indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
-  </tr>
-  <tr>
+      <th>Driver</th>
+      <th align="left">Kind</th>
+      <th align="left">Setting name</th>
+      <th align="left">Setting type</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <a href="https://www.google.com/chrome/">headless_chrome</a>
+      </td>
+      <td align="left">Headless</td>
+      <td align="left">
+        <strong>headless_chrome_flags</strong>
+      </td>
+      <td align="left">
+        String
+      </td>
+      <td align="left">
+        represents startup arguments, full list <a href="https://peter.sh/experiments/chromium-command-line-switches/">here.</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox">headless_firefox</a>
+      </td>
+      <td align="left">Headless</td>
+      <td align="left">
+        <strong> headless_firefox_flags</strong>
+      </td>
+      <td align="left">
+        String
+      </td>
+      <td align="left">
+        represents startup arguments, full list <a href="http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options.html">here.</a>
+      </td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings">selenium</a></td>
+      <td align="left">Real</td>
+      <td align="left"><strong>selenium_browser</strong></td>
+      <td align="left">String</td>
+      <td align="left">Indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
+    </tr>
+    <tr>
       <td><a href="https://www.selenium.dev/documentation/grid/">selenium_grid</a></td>
-      <td align="center">Real</td>
-      <td align="center"><strong>selenium_hub_url<br/>selenium_browser<br/><br/><br/></strong></td>
-      <td align="center">String<br/>String<br/><br/><br/></td>
-      <td align="center">Hub url<br/>indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
-  </tr>
-  <tr>
-    <td><a href="https://saucelabs.com">sauce</a></td>
-    <td align="center">Real</td>
-    <td align="center">
-    <strong>cloud_auth_login<strong><br/>
-    <strong>cloud_auth_pass</strong><br/>
-    <strong>cloud_platform</strong><br/>
-    <strong>cloud_browser_name</strong><br/>
-    <strong>cloud_browser_version</strong><br/>
-    <strong>cloud_max_duration</strong><br/>
-    <strong>cloud_http_idle_timeout</strong><br/>
-    <strong>cloud_sauce_record_screenshots</strong><br/>
-    <strong>cloud_sauce_idle_timeout</strong><br/>
-    <strong>cloud_sauce_video_upload_on_pass</strong>
-    </td>
-
-    <td align="center">
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    Integer<br/>
-    Bolean<br/>
-    String<br/>
-    Boolean
-    </td>
-    <td align="center">See details <a href="https://docs.saucelabs.com/dev/test-configuration-options/">here</a></td>
-  </tr>
-  <tr>
-    <td><a href="http://testingbot.com">testingbot</a></td>
-    <td align="center">Real</td>
-    <td align="center">
-      <strong>cloud_auth_login<strong><br/>
-      <strong>cloud_auth_pass</strong><br/>
-      <strong>cloud_platform</strong><br/>
-      <strong>cloud_browser_name</strong><br/>
-      <strong>cloud_browser_version</strong><br/>
-      <strong>cloud_max_duration</strong><br/>
-      <strong>cloud_http_idle_timeout</strong><br/>
-      <strong>cloud_testingbot_idle_timeout</strong><br/>
-      <strong>cloud_testingbot_screenshots</strong>
-    </td>
-    <td align="center">
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    Integer<br/>
-    String<br/>
-    Boolean
-    </td>
-    <td align="center">See details <a href="https://testingbot.com/support/other/test-options">here</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.browserstack.com">browserstack</a></td>
-    <td align="center">Real</td>
-    <td align="center">
-    <strong>cloud_auth_login<strong><br/>
-    <strong>cloud_auth_pass</strong><br/>
-    <strong>cloud_platform</strong><br/>
-    <strong>cloud_browser_name</strong><br/>
-    <strong>cloud_browser_version</strong><br/>
-    <strong>cloud_max_duration</strong><br/>
-    <strong>cloud_http_idle_timeout</strong><br/>
-    <strong>cloud_bstack_resolution</strong><br/>
-    <strong>cloud_bstack_project</strong><br/>
-    <strong>cloud_bstack_build</strong><br/>
-    <strong>cloud_bstack_resolution</strong><br/>
-    <strong>cloud_bstack_mobile_device</strong>
-    </td>
-
-    <td align="center">
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    Integer<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String
-    </td>
-    <td align="center">See details <a href="https://www.browserstack.com/automate/capabilities">here</a></td>
-  </tr>
-  <tr>
-    <td><a href="https://crossbrowsertesting.com/">crossbrowsertesting</a></td>
-    <td align="center">Real</td>
-    <td align="center">
-    <strong>cloud_auth_login<strong><br/>
-    <strong>cloud_auth_pass</strong><br/>
-    <strong>cloud_browser_name</strong><br/>
-    <strong>cloud_browser_version</strong><br/>
-    <strong>cloud_max_duration</strong><br/>
-    <strong>cloud_cbt_name</strong><br/>
-    <strong>cloud_cbt_build</strong><br/>
-    <strong>cloud_cbt_os_api_name</strong><br/>
-    <strong>cloud_cbt_screen_resolution</strong><br/>
-    <strong>cloud_cbt_record_video</strong><br/>
-    <strong>cloud_cbt_record_network</strong>
-    </td>
-    <td align="center">
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String<br/>
-    String
-    </td>
-    <td align="center">See details <a href="https://support.smartbear.com/crossbrowsertesting/docs/automated-testing/automation-capabilities.html">here</a></td>
-  </tr>
-</tbody>
+      <td align="left">Real</td>
+      <td align="left"><strong>selenium_hub_url<br/>selenium_browser<br/><br/><br/></strong></td>
+      <td align="left">String<br/>String<br/><br/><br/></td>
+      <td align="left">Hub url<br/>indicates one of the following browsers: iexplore (ie), firefox (ff), chrome, safari.</td>
+    </tr>
+    <tr>
+      <td><a href="https://saucelabs.com">sauce</a></td>
+      <td align="left">Real</td>
+      <td align="left">
+        <strong>cloud_auth_login</strong><br/>
+        <strong>cloud_auth_pass</strong><br/>
+        <strong>cloud_platform</strong><br/>
+        <strong>cloud_browser_name</strong><br/>
+        <strong>cloud_browser_version</strong><br/>
+        <strong>cloud_max_duration</strong><br/>
+        <strong>cloud_http_idle_timeout</strong><br/>
+        <strong>cloud_sauce_record_screenshots</strong><br/>
+        <strong>cloud_sauce_idle_timeout</strong><br/>
+        <strong>cloud_sauce_video_upload_on_pass</strong>
+      </td>
+      <td align="left">
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        Integer<br/>
+        Bolean<br/>
+        String<br/>
+        Boolean
+      </td>
+      <td align="left">See details <a href="https://docs.saucelabs.com/dev/test-configuration-options/">here</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://testingbot.com">testingbot</a></td>
+      <td align="left">Real</td>
+      <td align="left">
+        <strong>cloud_auth_login</strong><br/>
+        <strong>cloud_auth_pass</strong><br/>
+        <strong>cloud_platform</strong><br/>
+        <strong>cloud_browser_name</strong><br/>
+        <strong>cloud_browser_version</strong><br/>
+        <strong>cloud_max_duration</strong><br/>
+        <strong>cloud_http_idle_timeout</strong><br/>
+        <strong>cloud_testingbot_idle_timeout</strong><br/>
+        <strong>cloud_testingbot_screenshots</strong>
+      </td>
+      <td align="left">
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        Integer<br/>
+        String<br/>
+        Boolean
+      </td>
+      <td align="left">See details <a href="https://testingbot.com/support/other/test-options">here</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://www.browserstack.com">browserstack</a></td>
+      <td align="left">Real</td>
+      <td align="left">
+        <strong>cloud_auth_login</strong><br/>
+        <strong>cloud_auth_pass</strong><br/>
+        <strong>cloud_platform</strong><br/>
+        <strong>cloud_browser_name</strong><br/>
+        <strong>cloud_browser_version</strong><br/>
+        <strong>cloud_max_duration</strong><br/>
+        <strong>cloud_http_idle_timeout</strong><br/>
+        <strong>cloud_bstack_resolution</strong><br/>
+        <strong>cloud_bstack_project</strong><br/>
+        <strong>cloud_bstack_build</strong><br/>
+        <strong>cloud_bstack_resolution</strong><br/>
+        <strong>cloud_bstack_mobile_device</strong>
+      </td>
+      <td align="left">
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        Integer<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String
+      </td>
+      <td align="left">See details <a href="https://www.browserstack.com/automate/capabilities">here</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://crossbrowsertesting.com/">crossbrowsertesting</a></td>
+      <td align="left">Real</td>
+      <td align="left">
+        <strong>cloud_auth_login</strong><br/>
+        <strong>cloud_auth_pass</strong><br/>
+        <strong>cloud_browser_name</strong><br/>
+        <strong>cloud_browser_version</strong><br/>
+        <strong>cloud_max_duration</strong><br/>
+        <strong>cloud_cbt_name</strong><br/>
+        <strong>cloud_cbt_build</strong><br/>
+        <strong>cloud_cbt_os_api_name</strong><br/>
+        <strong>cloud_cbt_screen_resolution</strong><br/>
+        <strong>cloud_cbt_record_video</strong><br/>
+        <strong>cloud_cbt_record_network</strong>
+      </td>
+      <td align="left">
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String
+      </td>
+      <td align="left">See details <a href="https://support.smartbear.com/crossbrowsertesting/docs/automated-testing/automation-capabilities.html">here</a></td>
+    </tr>
+  </tbody>
 </table>
 
 Introduction to the Page Object Model
@@ -230,12 +228,11 @@ Pages
 
 Pages are classes describing real web pages. For example, 'Home page' can be described as:
 
-<pre><code class="language-ruby">
-class HomePage < Howitzer::Web::Page
+<pre><code class="language-ruby">class HomePage < Howitzer::Web::Page
 end
 </code></pre>
 
-It means that each page is inherited from a parent class 'Howitzer::Web::Page' which contains common methods for all pages.
+It means that each page is inherited from a parent class 'Howitzer<span>::Web</span>::Page' which contains common methods for all pages.
 
 ### Url specifying
 
@@ -244,8 +241,7 @@ you must set at least its relative path. Here's how:
 
 **Example1:**
 
-<pre><code class="language-ruby">
-# put the class to ./web/pages/home_page.rb file
+<pre><code class="language-ruby"># put the class to ./web/pages/home_page.rb file
 
 class HomePage < Howitzer::Web::Page
   path '/'
@@ -254,8 +250,7 @@ end
 
 **Example2:**
 
-<pre><code class="language-ruby">
-# put the class to ./web/pages/product_page.rb file
+<pre><code class="language-ruby"># put the class to ./web/pages/product_page.rb file
 
 class ProductPage < Howitzer::Web::Page
   path '/products{/id}'
@@ -264,8 +259,7 @@ end
 
 **Example3:**
 
-<pre><code class="language-ruby">
-# put the class to ./web/pages/search_page.rb file
+<pre><code class="language-ruby"># put the class to ./web/pages/search_page.rb file
 
 class SearchPage < Howitzer::Web::Page
   path '/search{?query*}'
@@ -276,8 +270,7 @@ It allows you to navigate to a page without url duplication each time:
 
 **Example:**
 
-<pre><code class="language-ruby">
-HomePage.open #=> visits /
+<pre><code class="language-ruby">HomePage.open #=> visits /
 ProductPage.open(id: 1) #=> visits /products/1
 SearchPage.open #=> visits /search
 SearchPage.open(query: {text: :foo}) #=> visits /search?text=foo
@@ -285,11 +278,10 @@ SearchPage.open(query: {text: :foo}) #=> visits /search?text=foo
 
 For more information about path patterns please refers to https://github.com/sporkmonger/addressable
 
-__Note:__ By default, all pages have an application host specified in Howitzer::Web::Page class as Howitzer.app_host.site
+__Note:__ By default, all pages have an application host specified in Howitzer <span>::Web</span>::Page class as Howitzer.app_host.site
 If your web application under test consists of different application hosts, then you can specify custom application host for specific page classes. Here's how:
 
-<pre><code class="language-ruby">
-class AuthPage < Howitzer::Web::Page
+<pre><code class="language-ruby">class AuthPage < Howitzer::Web::Page
   site 'https://example.com'
   path '/auth'
 end
@@ -299,10 +291,8 @@ end
 
 The Page Object pattern does not suppose to use any validations on the UI driver level. But at the same time every page must have some anchor to identify a page exclusively.
 
-<pre><code class="language-ruby">
-validate <type>, <value>
-# or
-validate <type>, <value>, <additional_value>
+<pre><code class="language-ruby">validate "type", "value"
+validate "type", "value", "additional_value"
 </code></pre>
 
 Howitzer provides 3 different validation types:
@@ -336,8 +326,7 @@ Howitzer provides 3 different validation types:
 
 **Example 1:**
 
-<pre><code class="language-ruby">
-class HomePage < Howitzer::Web::Page
+<pre><code class="language-ruby">class HomePage < Howitzer::Web::Page
   path '/'
   validate :url, /\A(?:.*?:\/\/)?[^\/]*\/?\z/
 end
@@ -345,8 +334,7 @@ end
 
 **Example 2:**
 
-<pre><code class="language-ruby">
-class LoginPage < Howitzer::Web::Page
+<pre><code class="language-ruby">class LoginPage < Howitzer::Web::Page
   path '/users/sign_in'
   validate :title, /Sign In\z/
 end
@@ -388,8 +376,7 @@ Calling `.displayed?` will trigger validations **explicitly**. It returns true i
 
 For example, with the following path template:
 
-<pre><code class="language-ruby">
-class AccountPage < Howitzer::Web::Page
+<pre><code class="language-ruby">class AccountPage < Howitzer::Web::Page
   path '/accounts/{id}'
 end
 
@@ -427,24 +414,21 @@ end
 
 And now how we could use it:
 
-<pre><code class="language-ruby">
-HomePage.open.method1.method2
+<pre><code class="language-ruby">HomePage.open.method1.method2
 # or
 HomePage.given.method1.method2
 </code></pre>
 
 What current problem here? Potentially there is risk method1 will navigate us to another page. We will not know about it and method2 execution will fail. It is really annoying to debug such cases. What alternative then? We need something like that:
 
-<pre><code class="language-ruby">
-HomePage.open
+<pre><code class="language-ruby">HomePage.open
 HomePage.given.method1
 HomePage.given.method2
 </code></pre>
 
 We see a code duplication `HomePage.given` here. Fortunately, we have another method #on which allows us to get rid of the code duplication and have a more elegant code.
 
-<pre><code class="language-ruby">
-HomePage.open
+<pre><code class="language-ruby">HomePage.open
 HomePage.on do
   method1
   method2
@@ -455,8 +439,7 @@ It is fully identical with previous functionality. On each method execution, we 
 
 Although it should be noted, such technical approach has own technical limitation. We unbind context. As result, we loose access to outer instance variables and methods and do not have ability to use it within #on block. This is a price for elegance. Howitzer provides a solution for this case - #out method. Let's take a look at a following example:
 
-<pre><code class="language-ruby">
-# Some cucumber step definitions
+<pre><code class="language-ruby"># Some cucumber step definitions
 Given /^there is article$/ do
   @article = create(:article)
 end
@@ -496,7 +479,7 @@ Capybara form dsl methods are not compatible with page object pattern and Howitz
 Instead of including Capybara::DSL module, we proxy most interesting Capybara methods and
 prevent using extra methods which can potentially break main principles and framework concept
 
-You can access all [Capybara::Session::SESSION_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) and [Capybara::Session::MODAL_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) methods via instance of any Howitzer page. In additional, `#driver` and  `#text` are available as well. Here are examples how to use:
+You can access all [Capybara<span>::Session</span>::SESSION_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) and [Capybara<span>::Session</span>::MODAL_METHODS](https://github.com/jnicklas/capybara/blob/master/lib/capybara/session.rb) methods via instance of any Howitzer page. In additional, `#driver` and  `#text` are available as well. Here are examples how to use:
 
 <pre><code class="language-ruby">
 HomePage.on { evaluate_script("alert('Hello World')") }
@@ -530,15 +513,15 @@ end
 
 The `element` method will add a number of methods to instances of the particular Page class.
 
-</code></pre>
-#<element_name>_element - equals capybara #find(…) method
-#<element_name>_elements - equals capybara #all(…) method
-#<element_name>_elements.first - equals capybara #first(…) method
-#wait_for_<element_name>_element - equals capybara #find(…) method but returns nil or raises exception
-#within_<element_name>_element - equals capybara #within(…) method
-#has_<element_name>_element? - equals capybara #has_selector(…) method
-#has_no_<element_name>_element? - equals capybara #has_no_selector(…) method
-</code></pre>
+<ul>
+  <li><strong>#element_name_element</strong>- equals capybara #find(…) method</li>
+  <li><strong>#element_name_elements</strong>- equals capybara #all(…) method</li>
+  <li><strong>#element_name_elements.first</strong>- equals capybara #first(…) method</li>
+  <li><strong>#wait_for_element_name_element</strong>- equals capybara #find(…) method but returns nil or raises exception</li>
+  <li><strong>#within_element_name_element</strong>- equals capybara #within(…) method</li>
+  <li><strong>#has_element_name_element?</strong>- equals capybara #has_selector(…) method</li>
+  <li><strong>#has_no_element_name_element?</strong>- equals capybara #has_no_selector(…) method</li>
+</ul>
 
 __Note:__ It is forbidden to access to elements via specific page class directly. You must implement logical method within the page instead. Nevertheless, predicate methods are still available for elements. It is useful to combine with [Rspec predicate matchers](https://github.com/rspec/rspec-expectations#predicate-matchers)
 
@@ -566,8 +549,7 @@ Sometimes it is necessary to have universal selectors, e.g. for menu items. Anot
 
 **Example:**
 
-<pre><code class="language-ruby">
- element :menu_item, :xpath, ->(name:) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
+<pre><code class="language-ruby">element :menu_item, :xpath, ->(name:) { ".//*[@id='main_menu']//li[.='#{ name }']/a" }
 
  #and then usage
  def choose_menu(text)
@@ -589,39 +571,36 @@ method which returns an instance of a page section, found by the supplied css
 selector with using special `me` dsl method. This root node becomes the 'scope'
 of the section. What follows is an explanation of `section`.
 
-#### Defining a Section
+<h4>Defining a Section</h4>
 
 A section is similar to a page in that it inherits from a
-Howitzer::Web::Section class:
+Howitzer<span>::Web</span>::Section class:
 
-<pre><code class="language-ruby">
-class MenuSection < Howitzer::Web::Section
+<pre><code class="language-ruby">class MenuSection < Howitzer::Web::Section
   me "#gbx3" #parent element for the section
 end
 </code></pre>
 
 At the moment, this section does nothing.
 
-#### Adding a section to a page
+<h4>Adding a section to a page</h4>
 
 Pages include sections that are how Howitzer works. Here's a page that
 includes the above `MenuSection` section:
 
-<pre><code class="language-ruby">
-class HomePage < Howitzer::Web::Page
+<pre><code class="language-ruby">class HomePage < Howitzer::Web::Page
   section :menu
 end
 </code></pre>
 
-#### Accessing a page's section
+<h4>Accessing a page's section</h4>
 
 The `section` method (like the `element` method) adds a few methods to
 the page or section class it was called against. The first method that
 is added is one that returns an instance of the section, the method name
 being the first argument to the `section` method with `_section` prefix . Here's an example:
 
-<pre><code class="language-ruby">
-# the section:
+<pre><code class="language-ruby"># the section:
 
 class MenuSection < Howitzer::Web::Section
   me "#gbx3"
@@ -649,8 +628,7 @@ the `section` method that will be used to find the root element of the section;
 The following shows that though the same section can appear on multiple
 pages, it can take a different root node:
 
-<pre><code class="language-ruby">
-# define the section that appears on both pages
+<pre><code class="language-ruby"># define the section that appears on both pages
 
 class MenuSection < Howitzer::Web::Section
   me '#gbx3'
@@ -672,7 +650,7 @@ You can see that the `MenuSection` is used in both the `HomePage` and
 capybara element that is found by the css selector becomes the root node
 for the relevant page's instance of the `MenuSection` section.
 
-#### Adding elements to a section
+<h4>Adding elements to a section</h4>
 
 This works just the same as adding elements to a page:
 
@@ -707,7 +685,7 @@ HomePage.open
 HomePage.on { menu_section.logout }
 </code></pre>
 
-#### Testing for the existence of a section
+<h4>Testing for the existence of a section</h4>
 
 Just like elements, it is possible to test for the existence of a
 section. The `section` method adds a method called `has_<section name>_section?`
@@ -727,9 +705,7 @@ end
 
 ... you can check whether the section is present on the page or not:
 
-<pre><code class="language-ruby">
-HomePage.on { has_menu_section? } #=> returns true or false
-</code></pre>
+<pre><code class="language-ruby">HomePage.on { has_menu_section? } #=> returns true or false</code></pre>
 
 Again, this allows pretty test code:
 
@@ -738,14 +714,12 @@ HomePage.on { is_expected.to have_menu_section }
 HomePage.on { is_expected.to have_no_menu_section }
 </code></pre>
 
-#### Sections within sections
+<h4>Sections within sections</h4>
 
 You are not limited to adding sections only to pages; you can nest
 sections within sections within sections within sections!
 
-<pre><code class="language-ruby">
-
-# define a page that contains an area that contains a section for both logging in and registration, then modeling each of the sub sections separately
+<pre><code class="language-ruby"># define a page that contains an area that contains a section for both logging in and registration, then modeling each of the sub sections separately
 
 class LoginSection < Howitzer::Web::Section
   me "div.login-area"
@@ -805,7 +779,7 @@ When /^I enter my name into the home page's registration form$/ do
 end
 </code></pre>
 
-#### Anonymous Sections
+<h4>Anonymous Sections</h4>
 
 If you want to use a section more as a namespace for elements and are not
 planning on re-using it, you may find it more convenient to define
@@ -888,14 +862,13 @@ DashboardPage.on { is_expected.to have_fb_iframe }
 
 ### Interacting with an iframe's contents:
 
-Since an iframe contains a fully fledged Howitzer::Web::Page, you are able
+Since an iframe contains a fully fledged Howitzer<span>::Web</span>::Page, you are able
 to interact with the elements and sections defined within it. Due to
 capybara internals it is necessary to pass a block to the iframe instead
 of simply calling methods on it; the block argument is the
-Howitzer::Web::Page that represents the iframe's contents. For example:
+Howitzer<span>::Web</span>::Page that represents the iframe's contents. For example:
 
-<pre><code class="language-ruby">
-# Howitzer::Web::Page representing the iframe
+<pre><code class="language-ruby"># Howitzer::Web::Page representing the iframe
 class LoginPage < Howitzer::Web::Page
   element :username, "input.username"
   element :password, "input.password"
@@ -961,8 +934,7 @@ end
 </code></pre>
 
 my_page_spec.rb
-<pre><code class="language-ruby">
-require 'spec_helper'
+<pre><code class="language-ruby">require 'spec_helper'
 
 RSpec.describe “some feature” do
   context “when...” do
@@ -999,8 +971,7 @@ Howitzer allows you to define individual emails like web pages.  is used for thi
 To interact with individual emails, they need to be defined as separate classes with Email sufix inherited from `Howitzer::Email` class.
 In additional, each class must contain a special subject pattern which uses to identify the email correctly. Howitzer makes this easy:
 
-<pre><code class="language-ruby">
-# put it to ./emails/welcome_email.rb
+<pre><code class="language-ruby"># put it to ./emails/welcome_email.rb
 class WelcomeEmail < Howitzer::Email
   subject 'Welcome on board :name' # :name is placeholder here
 
@@ -1038,7 +1009,7 @@ Howitzer provides `Howitzer::MailAdapters::Abstract` universal interface for dif
 * **\#sender_email** - returns an email of a sender.
 * **\#mime_part** - allows you receiving an email attachment.
 
-#### Mailgun
+<h4>Mailgun</h4>
 
 By default, Howitzer uses an outstanding service called [Mailgun](http://www.mailgun.com) that allows catching all emails of a sandbox domain and store them in its own data storage within 3 days. It is extremely useful during web application testing when a new user with email confirmation is created.
 
@@ -1071,7 +1042,7 @@ You could use a **free** account in past, but now it is required paid account to
 </tbody>
 </table>
 
-#### Gmail
+<h4>Gmail</h4>
 
 Google mail service (<a href="https://gmail.com">Gmail</a>) allows to make several addresses out of one. Technically you can signup with some test account and generate any amount of addresses by adding `.` or `+<uniq text>`. Read more about it <a href="https://www.nytimes.com/2018/08/23/technology/personaltech/periods-in-gmail-addresses.html">here</a>.
 
@@ -1085,7 +1056,7 @@ gmail_login: <test email>
 gmail_password: <test password>
 </code></pre>
 
-#### Mailtrap
+<h4>Mailtrap</h4>
 
 Read more about it <a href="https://mailtrap.io/">here</a>.
 
@@ -1206,15 +1177,15 @@ The module supports the following methods:
     <td>Adds data to the storage, where ns is a unique namespace name.</td>
   </tr>
   <tr>
-    <td>Howitzer::Cache::extract(ns, key=nil)</td>
+    <td>Howitzer<span>::Cache</span>::extract(ns, key=nil)/td>
     <td>Gets data from the storage by a namespace and a key. If a key is not specified, it will return all data from the namespace.</td>
   </tr>
   <tr>
-    <td>Howitzer::Cache::clear_ns(ns)</td>
+    <td>Howitzer<span>::Cache</span>::clear_ns(ns)</td>
     <td>Removes a namespace with the data.</td>
   </tr>
   <tr>
-    <td>Howitzer::Cache::clear_all_ns(exception_list=SPECIAL_NS_LIST)</td>
+    <td>Howitzer<span>::Cache</span>::clear_all_ns(exception_list=SPECIAL_NS_LIST)</td>
     <td>Removes all namespaces except special namespaces provided as an array.</td>
   </tr>
 </tbody>
@@ -1230,8 +1201,7 @@ Howitzer::Cache.store(:post, "post1", Post.new("Amazing post"))
 
 In memory it looks like:
 
-<pre><code class="language-ruby">
-{
+<pre><code class="language-ruby">{
   user: {
     1 => User.new('Peter'),
     2 => User.new('Dan')
@@ -1341,6 +1311,6 @@ above.
 
 You can find full list of rake tasks with description with a following command:
 
-</code></pre>bash
+<code></pre>bash
    rake -T
 </code></pre>
