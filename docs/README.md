@@ -1223,7 +1223,7 @@ it with the application code. How could we prepare test pre-requisites
 then? Here are possible options:
 1) direct manipulation with a database
 2) via GUI
-3) via REST API
+3) via REST API <br>
   In first case, we could really to connect to a database and create required
 data. But wait, what about a case when a table is renamed or restructured by
 developers? It is really difficult to keep such data generators in
