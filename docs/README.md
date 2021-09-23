@@ -747,7 +747,7 @@ class RegistrationSection < Howitzer::Web::Section
   end
 end
 
-class LoginRegistrationFormSection < Howitzer::Web::Section
+class LoginAndRegistrationFormSection < Howitzer::Web::Section
   me "div.login-registration"
   section :login
   section :registration  
