@@ -204,6 +204,34 @@ The following table gives the important information about driver settings in How
       </td>
       <td align="left">See details <a href="https://support.smartbear.com/crossbrowsertesting/docs/automated-testing/automation-capabilities.html">here</a></td>
     </tr>
+    <tr>
+      <td><a href="https://www.lambdatest.com/">lambdatest</a></td>
+      <td align="left">Real</td>
+      <td align="left">
+        <strong>cloud_lambdatest_user</strong><br/>
+        <strong>cloud_lambdatest_accessKey</strong><br/>
+        <strong>cloud_browser_name</strong><br/>
+        <strong>cloud_browser_version</strong><br/>
+        <strong>cloud_lambdatest_build</strong><br/>
+        <strong>cloud_lambdatest_resolution</strong><br/>
+        <strong>cloud_lambdatest_project</strong><br/>
+        <strong>cloud_lambdatest_mobile_device</strong><br/>
+      </td>
+      <td align="left">
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String<br/>
+        String
+      </td>
+      <td align="left">See details <a href="https://www.lambdatest.com/capabilities-generator">here</a></td>
+    </tr>
   </tbody>
 </table>
 
